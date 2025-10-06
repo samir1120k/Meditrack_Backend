@@ -1,27 +1,30 @@
-import firebase_admin
-from firebase_admin import credentials, db
 import os
 import json
+import firebase_admin
+from firebase_admin import credentials, db
 from dotenv import load_dotenv
 
-# Load local .env variables (only used in local dev)
 load_dotenv()
 
-# Read the Firebase credentials JSON string from environment variable
-firebase_creds_json = os.getenv("FIREBASE_CREDENTIALS")
+# Get Firebase config from environment variables
+firebase_config = {
+    "type": "service_account",
+    "project_id": os.getenv("FIREBASE_PROJECT_ID"),
+    "private_key_id": os.getenv("FIREBASE_PRIVATE_KEY_ID"),
+    "private_key": os.getenv("FIREBASE_PRIVATE_KEY").replace("\\n", "\n"),
+    "client_email": os.getenv("FIREBASE_CLIENT_EMAIL"),
+    "client_id": os.getenv("FIREBASE_CLIENT_ID"),
+    "auth_uri": os.getenv("FIREBASE_AUTH_URI"),
+    "token_uri": os.getenv("FIREBASE_TOKEN_URI"),
+    "auth_provider_x509_cert_url": os.getenv("FIREBASE_AUTH_PROVIDER_CERT_URL"),
+    "client_x509_cert_url": os.getenv("FIREBASE_CLIENT_CERT_URL"),
+}
 
-if not firebase_creds_json:
-    raise ValueError("Missing FIREBASE_CREDENTIALS environment variable.")
-
-# Parse JSON string to dict
-firebase_creds_dict = json.loads(firebase_creds_json)
-
-# Initialize Firebase app only once
+# Initialize Firebase only once
 if not firebase_admin._apps:
-    cred = credentials.Certificate(firebase_creds_dict)
+    cred = credentials.Certificate(firebase_config)
     firebase_admin.initialize_app(cred, {
-        'databaseURL': 'https://bppv-13cd9-default-rtdb.firebaseio.com/'
+        "databaseURL": os.getenv("FIREBASE_DATABASE_URL")
     })
 
-# Reference to 'patients' node
-patients_ref = db.reference('patients')
+patients_ref = db.reference("patients")
