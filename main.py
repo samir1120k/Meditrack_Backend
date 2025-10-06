@@ -4,15 +4,19 @@ from app.patients import router as patients_router
 
 app = FastAPI(title="Patient Management API")
 
+allowed_origins = [
+    "https://samir1120k.github.io",  # GitHub Pages origin (no path)
+    "http://localhost:5173",         # Vite dev
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Or restrict to your frontend URL
-    allow_credentials=True,
+    allow_origins=allowed_origins,
+    allow_credentials=True,          # keep True only with explicit origins
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Include patient routes
 app.include_router(patients_router, prefix="/patients", tags=["Patients"])
 
 @app.get("/")
