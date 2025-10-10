@@ -24,7 +24,7 @@
 
 ## 🚀 Live Applications
 
-<div align="center">
+<div>
 
 **Visit the live application:** [Meditrack Frontend](https://samir1120k.github.io/Meditrack_Frontend)
 
