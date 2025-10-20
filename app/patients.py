@@ -36,7 +36,7 @@ def get_all_patients():
     # Sort by most recently added (Firebase keys are IDs; optional: add timestamp)
     sorted_patients = sorted(
         data.values(),
-        key=lambda x: x.get("id", ""),  # fallback on ID if no timestamp
+        key=lambda x: x.get("id", ""),  
         reverse=True
     )
     return {"patients": sorted_patients}
