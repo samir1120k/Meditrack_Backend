@@ -26,7 +26,7 @@
 
 <div>
 
-**Visit the live application:** [Meditrack Frontend](https://samir1120k.github.io/Meditrack_Frontend)
+**Visit the live application:** [Meditrack Frontend](https://satyam1120k.github.io/Meditrack_Frontend)
 
 **Visit the live API:** [Meditrack API](https://meditrack-backend-murex.vercel.app)
 
